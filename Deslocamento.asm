@@ -1,0 +1,106 @@
+	ORG 0000h
+	MOV R0, #0h
+	MOV P2, #0h
+
+	;Alimentação por catodo comum
+
+DIREITA:
+	CLR TF0
+	SETB P2.0
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.0	;Apaga o LED antecessor
+	SETB P2.1	;Acende o LED atual
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.1
+	SETB P2.2
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.2
+	SETB P2.3
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.3
+	SETB P2.4
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.4
+	SETB P2.5
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.5
+	SETB P2.6
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.6
+	SETB P2.7
+	CALL TEMPO
+	MOV R0, #0h
+	JMP ESQUERDA
+
+ESQUERDA:
+	CLR TF0
+	CLR P2.7
+	SETB P2.6
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.6
+	SETB P2.5
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.5
+	SETB P2.4
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.4
+	SETB P2.3
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.3
+	SETB P2.2
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.2
+	SETB P2.1
+	CALL TEMPO
+	MOV R0, #0h
+
+	CLR TF0
+	CLR P2.1
+	JMP DIREITA
+
+
+TEMPO:	setb	TR0		;Inicia o TIMER de 1 segundo
+	jnb	TF0, $
+	inc	R0
+	clr	TF0
+	CLR 	TR0
+	cjne	R0, #124d, TEMPO
+	clr	TF0
+	clr	TR0
+	ret
